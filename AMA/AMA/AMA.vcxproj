@@ -144,7 +144,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Date.cpp" />
-    <ClCompile Include="ms1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h" />
