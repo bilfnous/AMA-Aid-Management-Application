@@ -1,6 +1,6 @@
 # AMA-Aid-Management-Application
 
-					Version 3.7.0
+*Version 3.7.0*
 
 When disaster hits a populated area, the most critical task is to provide immediately affected people with what they need as quickly and as efficiently as possible.
 
@@ -11,8 +11,7 @@ There are two categories for the types of goods that need to be shipped:
 * Perishable goods, such as food and medicine, that have an expiry date. We refer to goods in this category as Perishable objects.
 
 To complete this project you will need to create several classes that encapsulate your solution.
-
-
+<br><br>
 ## OVERVIEW OF THE CLASSES TO BE DEVELOPED
 
 The classes used by the application are:
@@ -43,6 +42,7 @@ Using this class, the client application can:
 * read individual item specifications from the keyboard and display them on the screen
 * update information regarding the number of each good on hand
 
+<br>
 
 ## THE CLIENT APPLICATION
 
@@ -56,10 +56,13 @@ The client application manages the iGoods and provides the user with options to:
 * delete a Good
 * sort the set of Goods
 
+<br>
 
 ## PROJECT CLASS DIAGRAM
 
 ![AMA Class Diagram](/images/AMACD.jpg)
+
+<br>
 
 ## FILE STRUCTURE OF THE PROJECT
 
@@ -67,13 +70,12 @@ Each class belongs to its own module. Each module has its own header (.h) file a
 
 Example: The **Date** module is defined in two files: **Date.h** and **Date.cpp**
 
-All the code developed for this application belongs to the **aid** namespace.
+All the code developed for this application belongs to the **ama** namespace.
 
+<br>
 
 ## MILESTONE 1: THE DATE MODULE
 
-To start this project, download milestone 1 from the course repository and code the missing parts of the `Date` class.
-	
 The `Date` class encapsulates a date that is readable by an `std::istream` object and printable by an `std::ostream object` using the following format: `YYYY/MM/DD`, where `YYYY` refers to a fourdigit value for the year, `MM` refers to a two-digit value for the month and `DD` refers to a two-digit value for the day in the month.
 	
 Complete the implementation of the Date class using following specifications:
@@ -159,6 +161,6 @@ This query writes the date to the first parameter in the following format:<br>
 
 ### FREE HELPER FUNCTIONS:
 * `operator<<`: Prints the date to the first parameter (use `Date::write()`).
-* `operator>>` : Reads the date from the first parameter (use `Date::read()`).
+* `operator>>`: Reads the date from the first parameter (use `Date::read()`).
 
 You can add as many private members as your design requires. Do not add extra public members.
