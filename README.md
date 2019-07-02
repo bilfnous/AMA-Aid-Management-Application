@@ -164,3 +164,40 @@ This query writes the date to the first parameter in the following format:<br>
 * `operator>>`: Reads the date from the first parameter (use `Date::read()`).
 
 You can add as many private members as your design requires. Do not add extra public members.
+
+<br><br>
+
+## MILESTONE 2: THE ERROR MODULE
+
+The `Error` class manages the error state of client code and encapsulates the last error message. <br>
+Any client can define and store an `Error` object. If a client encounters an error, the client can set its `Error` object to an appropriate message. The client specifies the length of the message. <br> 
+The `Error` object reports whether or not any error has occurred. The `isClear()` query on the object reports if an error has occurred. If an error has occurred, the object can display the message associated with that error. The object can be send its message to an `std::ostream object`. <br>
+This milestone does not use the Date class.<br>
+The class `Error` manages a resource and doesn’t support copying operations. <br> Complete your implementation of the Error class based on the following information:
+
+### Data Member:
+* A pointer that holds the address of the message, if any, stored in the current object.
+
+### PUBLIC MEMBER FUNCTIONS:
+* `explicit Error(const char* errorMessage = nullptr)`: This constructor receives the address of a C-style null terminated string that holds an error message.<br>
+If the address is nullptr, this function puts the object into a safe empty state.<br>
+If the address points to an empty message, this function puts the object into a safe empty state.<br>
+If the address points to a non-empty message, this function allocates memory for that message and copies the message into the allocated memory.
+* A destructor that de-allocates any memory that has been dynamically allocated by the current object.
+* `void clear()`: This function clears any message stored by the current object and initializes the object to a safe empty state.
+* `bool isClear() const`: This query reports returns true if the current object is in a safe empty state.
+* `void message(const char* str)`: This function stores a copy of the C-style string pointed to by `str`.
+
+De-allocates any memory allocated for a previously stored message.
+
+If `str` points to a non-empty message, this function allocates the dynamic memory needed to store a copy of `str` (remember to include 1 extra byte for the null terminator) and copies the message into that memory.
+
+If `str` points to an empty message, this function puts the current object in a safe empty state.
+
+* `const char* message() const`;
+If the current object is not in a safe empty state, this query returns the address of the message stored in the object. <br>
+If the current object is in a safe empty state, this query returns `nullptr`.
+
+### FREE HELPER OPERATOR:
+* `operator<<`: This operator sends an `Error` message, if one exists, to an std::ostream object and returns a reference to the `std::ostream` object.<br>
+If no message exists, this operator does not send anything to the `std::ostream` object and returns a reference to the `std::ostream` object.
