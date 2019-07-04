@@ -2,7 +2,7 @@
 *	Final Project Milestone 1 - Date Module
 *	Date.h
 *	Date 2019-07-01
-*	Auther B. Al-fanous
+*	Auther B. Alfanous
 */
 
 #include <iostream>

@@ -1,8 +1,17 @@
 /*
 *	Final Project Milestone 1 - Date Module
-*	Date.h
+*	Date.cpp
 *	Date 2019-07-01
-*	Auther B. Al-fanous
+*	Auther B. Alfanous
+*/
+
+/*
+		To start this project, clone/download milestone 1 from the course repository and code the missing 
+	parts of the Date class. 
+		The Date class encapsulates a date that is readable by an std::istream object and printable by 
+	an std::ostream object using the following format: YYYY/MM/DD, where YYYY refers to a four-digit 
+	value for the year, MM refers to a two-digit value for the month and DD refers to a two-digit 
+	value for the day in the month.
 */
 
 #define _CRT_SECURE_NO_WARNINGS
