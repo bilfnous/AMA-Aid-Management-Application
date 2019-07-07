@@ -27,7 +27,7 @@ namespace ama {
 		double m_price;
 		bool m_taxable;
 		Error mo_error;
-	
+
 	protected:
 		void name(const char*);
 		const char* name() const;

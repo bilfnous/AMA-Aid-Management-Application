@@ -145,11 +145,15 @@
   <ItemGroup>
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Error.cpp" />
-    <ClCompile Include="ms2.cpp" />
+    <ClCompile Include="Good.cpp" />
+    <ClCompile Include="ms3.cpp" />
+    <ClCompile Include="ms3_MyGood.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h" />
     <ClInclude Include="Error.h" />
+    <ClInclude Include="Good.h" />
+    <ClInclude Include="ms3_MyGood.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
