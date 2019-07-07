@@ -18,7 +18,7 @@
 #include <fstream>
 #include "Good.h"
 
-namespace aid {
+namespace ama {
 	class MyGood : public Good {
 	public:
 		MyGood();

@@ -22,7 +22,7 @@
 #define TAB '\t'
 using namespace std;
 
-namespace aid {
+namespace ama {
 	MyGood::MyGood() : Good("", "", "") {}
 	MyGood::MyGood(const char* sku, const char* name, const char* unit, int qty,
 		bool isTaxed, double price, int qtyNeeded) :
