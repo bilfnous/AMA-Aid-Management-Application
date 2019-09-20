@@ -1,5 +1,5 @@
 /*
-*	Final Project Milestone 1 - Error Module
+*	Final Project Milestone 2 - Error Module
 *	Error.cpp
 *	Date 2019-07-03
 *	Auther B. Alfanous
