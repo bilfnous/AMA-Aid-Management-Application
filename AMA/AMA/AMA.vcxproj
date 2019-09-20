@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Error.cpp" />
+    <ClCompile Include="ms1.cpp" />
     <ClCompile Include="ms2.cpp" />
   </ItemGroup>
   <ItemGroup>
