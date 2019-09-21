@@ -27,12 +27,27 @@
     <ClCompile Include="ms1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Good.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ms3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ms3_MyGood.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Error.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Good.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ms3_MyGood.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
