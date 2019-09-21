@@ -1,5 +1,5 @@
 /*
-*	Final Project Milestone 1 - Error Module
+*	Final Project Milestone 3 - Error Module
 *	Good.cpp
 *	Date 2019-07-06
 *	Auther B. Alfanous
@@ -24,7 +24,7 @@ namespace ama {
 		m_taxable = false;
 	}
 
-	Good::Good(const char* gsku, const char* gName, const char* gUnit, int gOnHand = 0, bool gTaxable = true, double gPrice = 0.0, int gNeeded = 0) {
+	Good::Good(const char* gsku, const char* gName, const char* gUnit, int gOnHand, bool gTaxable, double gPrice, int gNeeded) {
 		strncpy(ma_sku, gsku, max_sku_length);
 		ma_sku[max_sku_length] = '\0';
 
@@ -68,12 +68,12 @@ namespace ama {
 	}
 
 	void Good::name(const char* src) {
-		if (src != nullptr || strlen(src) != 0) {
+		if (src != nullptr || strlen(src) > 0) {
 			//delete product_name;
 			mp_goodName = nullptr;
-			int length = strlen(src);
+			size_t length = strlen(src);
 			if (length > max_name_length) {
-				mp_goodName = new char[max_name_length];
+				mp_goodName = new char[max_name_length + 1];
 				strncpy(mp_goodName, src, max_name_length);
 				mp_goodName[max_name_length] = '\0';
 			}
@@ -192,6 +192,41 @@ false otherwise.*/
 	}
 
 
+	std::fstream& Good::store(std::fstream& file, bool newLine) const {
+		
+		return file;
+	}
+
+	std::fstream& Good::load(std::fstream& file) {
+	
+		return file;
+	}
+
+	std::ostream& Good::write(std::ostream& os, bool linear) const {
+	
+		return os;
+	}
+
+	std::istream& Good::read(std::istream& is) {
+	
+		return is;
+	}
+
+
+	std::ostream& operator<<(std::ostream& os, const Good& rhs) {
+		
+		return os;
+	}
+
+	std::istream& operator>>(std::istream& is, Good& rhs) {
+		
+		return is;
+	}
+	
+	double operator+=(double& cost, const Good& rhs) {
+		
+		return cost;//TODO: updated double
+	}
 
 
 } // namespace ama

@@ -1,5 +1,5 @@
 /*
-*	Final Project Milestone 1 - Error Module
+*	Final Project Milestone 3 - Error Module
 *	Good.h
 *	Date 2019-07-06
 *	Auther B. Alfanous

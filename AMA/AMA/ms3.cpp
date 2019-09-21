@@ -18,7 +18,7 @@
 
 #define filename "ms3.txt"
 using namespace std;
-using namespace aid;
+using namespace ama;
 
 void test(const char* sku);
 void dumpFile(fstream& f);
