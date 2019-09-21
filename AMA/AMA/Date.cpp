@@ -16,10 +16,10 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
-#include<iostream>
-#include<iomanip>
+#include <iostream>
+#include <iomanip>
 #include <string>
-#include"Date.h"
+#include "Date.h"
 
 using namespace std;
 namespace ama {
@@ -48,11 +48,16 @@ namespace ama {
 				m_comparator = 0;
 		}
 		else if ((_year < min_year) || (_year > max_year))
-			m_errorCode = YEAR_ERROR;
+			errCode(YEAR_ERROR);
 		else if ((_month < 1) || (_month > 12))
-			m_errorCode = MON_ERROR;
+			errCode(MON_ERROR);
 		else if ((_day > mdays(_year, _month)) || (_day <= 0))
-			m_errorCode = DAY_ERROR;	
+			errCode(DAY_ERROR);
+	}
+
+	//This function sets the error state variable
+	void Date::errCode(int errorCode) {
+		m_errorCode = errorCode;
 	}
 
 	//This query returns the error state as an error code value.
@@ -62,7 +67,7 @@ namespace ama {
 
 	//This query returns true if the error state is not NO_ERROR.
 	bool Date::bad() const {
-		if (m_errorCode != NO_ERROR)
+		if (errCode() != NO_ERROR)
 			return true;
 		return false;
 	}
@@ -79,9 +84,7 @@ namespace ama {
 	A query that returns true if two date objects store the same date
 	(does not check error code of either object). */
 	bool Date::operator==(const Date& rhs) const {
-		if ((m_year == rhs.m_year) &&
-			(m_month == rhs.m_month) &&
-			(m_day_of_the_month == rhs.m_day_of_the_month))
+		if (m_comparator == rhs.m_comparator)
 			return true;
 		return false;
 	}
@@ -89,9 +92,7 @@ namespace ama {
 	/*A query that returns true if two date objects store different dates
 	(does not check error code of either object).*/
 	bool Date::operator!=(const Date& rhs) const{
-		if ((m_year != rhs.m_year) ||
-			(m_month != rhs.m_month) ||
-			(m_day_of_the_month != rhs.m_day_of_the_month))
+		if (m_comparator != rhs.m_comparator)
 			return true;
 		return false;
 	}
@@ -99,12 +100,7 @@ namespace ama {
 	/*A query that returns true if the current object stores a date that
 	is before the date stored in rhs (does not check error code of either object).*/
 	bool Date::operator<(const Date& rhs) const {
-		if (m_year < rhs.m_year)
-			return true;
-		else if ((m_year == rhs.m_year) && (m_month < rhs.m_month))
-			return true;
-		else if ((m_year == rhs.m_year) && (m_month == rhs.m_month) &&
-			(m_day_of_the_month < rhs.m_day_of_the_month))
+		if (m_comparator < rhs.m_comparator)
 			return true;
 		return false;
 	}
@@ -112,12 +108,7 @@ namespace ama {
 	/*A query that returns true if the current object stores a date that is after
 	the date stored in rhs (does not check error code of either object).*/
 	bool Date::operator>(const Date& rhs) const {
-		if (m_year > rhs.m_year)
-			return true;
-		else if ((m_year == rhs.m_year) && (m_month > rhs.m_month))
-			return true;
-		else if ((m_year == rhs.m_year) && (m_month == rhs.m_month) &&
-			(m_day_of_the_month > rhs.m_day_of_the_month))
+		if (m_comparator > rhs.m_comparator)
 			return true;
 		return false;
 	}
@@ -126,15 +117,7 @@ namespace ama {
 	that is before or equal to the date stored in rhs
 	(does not check error code of either object).*/
 	bool Date::operator<=(const Date& rhs) const {
-		if (m_year < rhs.m_year)
-			return true;
-		else if ((m_year == rhs.m_year) && (m_month < rhs.m_month))
-			return true;
-		else if ((m_year == rhs.m_year) && (m_month == rhs.m_month) &&
-			(m_day_of_the_month < rhs.m_day_of_the_month))
-			return true;
-		else if ((m_year == rhs.m_year) && (m_month == rhs.m_month) &&
-			(m_day_of_the_month == rhs.m_day_of_the_month))
+		if (m_comparator <= rhs.m_comparator)
 			return true;
 		return false;
 	}
@@ -144,15 +127,7 @@ namespace ama {
 	is after or equal to the date stored in rhs (does not check error code of either object).
 	*/
 	bool Date::operator>=(const Date& rhs) const {
-		if (m_year > rhs.m_year)
-			return true;
-		else if ((m_year == rhs.m_year) && (m_month > rhs.m_month))
-			return true;
-		else if ((m_year == rhs.m_year) && (m_month == rhs.m_month) &&
-			(m_day_of_the_month > rhs.m_day_of_the_month))
-			return true;
-		else if ((m_year == rhs.m_year) && (m_month == rhs.m_month) &&
-			(m_day_of_the_month == rhs.m_day_of_the_month))
+		if (m_comparator >= rhs.m_comparator)
 			return true;
 		return false;
 	}
@@ -167,28 +142,27 @@ namespace ama {
 		is >> year >> delimiter >> month >> delimiter >> day;
 		comparator = year * 372 + month * 31 + day;
 		if (is.fail()) {
-			m_errorCode = CIN_FAILED;
+			errCode(CIN_FAILED);
 			//is.clear();
 			//string trash;
 			//is >> trash;
 		}
 		else {
 			if ((year > max_year) || (year < min_year))
-				m_errorCode = YEAR_ERROR;
+				errCode(YEAR_ERROR);
 			else if ((month > 12) || (month < 1))
-				m_errorCode = MON_ERROR;
+				errCode(MON_ERROR);
 			else if (day > mdays(year, month) || day <= 0)
-				m_errorCode = DAY_ERROR;
-			else if ((m_errorCode == NO_ERROR) && (comparator >= min_date)) {
+				errCode(DAY_ERROR);
+			else if(comparator < min_date)
+				errCode(PAST_ERROR);
+			else if ((errCode() == NO_ERROR) && (comparator >= min_date)) {
 				m_year = year;
 				m_month = month;
 				m_day_of_the_month = day;
 				m_comparator = year * 372 + month * 31 + day;
 			}
-			else if(comparator = year * 372 + month * 31 + day)
-				m_errorCode = PAST_ERROR;
 		}
-
 		return is;
 	}
 
