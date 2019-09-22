@@ -47,7 +47,7 @@ namespace ama {
 		Good& operator=(const Good & src);
 		std::fstream& store(std::fstream& file, bool newLine = true) const;
 		std::fstream& load(std::fstream& file);
-		std::ostream& write(std::ostream& os, bool linear) const;
+		std::ostream& write(std::ostream& os, bool linear = true) const;
 		std::istream& read(std::istream& is);
 		bool operator==(const char*) const;
 		double total_cost() const;

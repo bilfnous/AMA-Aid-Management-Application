@@ -8,6 +8,10 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <cstring>
+#include <iomanip>
 #include "Good.h"
 
 using namespace std;
@@ -193,40 +197,211 @@ false otherwise.*/
 
 
 	std::fstream& Good::store(std::fstream& file, bool newLine) const {
-		
+		char taxed = 'N';
+
+		if (m_taxable)
+			taxed = 'Y';
+
+		file << m_productType << "," << ma_sku << "," << mp_goodName << "," << ma_unit << ",";
+		file << taxed << "," << m_price << "," << m_qtyOnHand << "," << m_qtyNeeded;
+
+		if (newLine)
+			file << '\n';
+
 		return file;
 	}
 
 	std::fstream& Good::load(std::fstream& file) {
-	
+		string temp;
+		char sku[max_sku_length];
+		char* name = new char[max_name_length + 1];
+		char unit[max_unit_length + 1];
+		char* tax = nullptr;
+		double price;
+		int qtyOnHand, qtyNeeded;
+		bool taxable = true;
+
+		getline(file, temp, ',');
+		strcpy(sku, temp.c_str());
+
+		getline(file, temp, ',');
+		strcpy(name, temp.c_str());
+
+		getline(file, temp, ',');
+		strcpy(unit, temp.c_str());
+
+		getline(file, temp, ',');
+		strcpy(tax, temp.c_str());
+		if (strcmp(tax, "Y") || strcmp(tax, "y"))
+			taxable = true;
+		else
+			taxable = false;
+
+		//stod() converts to double
+		getline(file, temp, ',');
+		price = stod(temp);
+
+		getline(file, temp, ',');
+		qtyOnHand = stoi(temp);
+
+		getline(file, temp, ',');
+		qtyNeeded = stoi(temp);
+
+		if (!file.fail()) {
+			Good temp = Good(sku, name, unit, qtyOnHand, taxable, price, qtyNeeded);
+			*this = temp;
+		}
+		delete[] name;
+		name = nullptr;
+		delete[] tax;
+		tax = nullptr;
+
 		return file;
 	}
 
 	std::ostream& Good::write(std::ostream& os, bool linear) const {
-	
+		if (!isClear()) {
+			os << mo_error.message();
+			return os;
+		}
+		else if (isEmpty()) {
+			return os;
+		}
+		else if (linear) {
+			os << " " << std::right << setfill(' ') << setw(max_sku_length) << ma_sku << " | ";
+
+			os << std::left;
+			if (strlen(mp_goodName) > 20) {
+				for (int i = 0; i < 17; i++)
+					os << mp_goodName[i];
+				os << "... | ";
+			}
+			else
+				os << setfill(' ') << setw(16) << mp_goodName << " | ";
+
+			os << std::right;
+			os << setfill(' ') << setw(7);
+			os.setf(ios::fixed);
+			os.precision(2);
+			os << m_price << " | ";
+			/*
+			if (m_taxable)
+				os << setfill(' ') << setw(3) << "yes" << " | ";
+			else
+				os << setfill(' ') << setw(3) << "no" << " | ";
+			*/
+
+			os << setfill(' ') << setw(4) << m_qtyOnHand << " | ";
+			os << setfill(' ') << setw(10) << ma_unit << " | ";
+			os << setfill(' ') << setw(4) << m_qtyNeeded << " |";
+		}
+		else {
+			os << "Sku: " << ma_sku << endl;
+			os << "Name: " << mp_goodName << endl;
+			os << "Price: ";
+			os.setf(ios::fixed);
+			os.precision(2);
+			os << m_price << endl;
+			os << "Quantity Available: " << m_qtyOnHand;
+			os << "Quantity Needed: " << m_qtyNeeded;
+		}
 		return os;
 	}
 
 	std::istream& Good::read(std::istream& is) {
-	
+		string temp;
+		char sku[max_sku_length];
+		char* name = new char[max_name_length + 1];
+		char unit[max_unit_length + 1];
+		char* tax = nullptr;
+		double price;
+		int qtyOnHand, qtyNeeded;
+		bool taxable = true;
+
+		//getline() extracts information from a string till it gets to the specified delimiter
+		//.c_str() converts a string to a char array
+		cout << "Sku: ";
+		is >> sku;
+		if (is.fail()) {
+			is.setstate(std::ios::failbit);
+			mo_error.message("<input value –C-style string>");
+		}
+
+		if (!(is.fail())) {
+			cout << "Name (no spaces): ";
+			is >> name;
+			if (is.fail()) {
+				is.setstate(std::ios::failbit);
+				mo_error.message("<input value –C-style string>");
+			}
+		}
+
+		if (!(is.fail())) {
+			cout << "Unit: ";
+			is >> unit;
+			if (is.fail()) {
+				is.setstate(std::ios::failbit);
+				mo_error.message("<input value –C-style string>");
+			}
+		}
+
+		if (!(is.fail())) {
+			cout << "Taxed? (y/n): ";
+			is >> tax;
+			if (is.fail()) {
+				is.setstate(std::ios::failbit);
+				mo_error.message("<input character –y,Y,n, or N> [“Only (Y)es or (N)o are acceptable”]");
+			}
+		}
+
+		if (!(is.fail())) {
+			cout << "price: ";
+			is >> price;
+			if (is.fail()) {
+				is.setstate(std::ios::failbit);
+				mo_error.message("<input value –double> [“Invalid Price Entry”]");
+			}
+		}
+
+		if (!(is.fail())) {
+			cout << "Quantity on hand: ";
+			is >> qtyOnHand;
+			if (is.fail()) {
+				is.setstate(std::ios::failbit);
+				mo_error.message("<input value –integer> [“Invalid Quantity Entry”]");
+			}
+		}
+
+		if (!(is.fail())) {
+			cout << "Quantity needed: ";
+			is >> qtyNeeded;
+			if (is.fail()) {
+				is.setstate(std::ios::failbit);
+				mo_error.message("<input value –integer> [“Invalid Quantity Needed Entry”]");
+			}
+		}
+		
+		if (!is.fail()) {
+			Good temp = Good(sku, name, unit, qtyOnHand, taxable, price, qtyNeeded);
+			*this = temp;
+		}
+		delete[] name;
+		name = nullptr;
+		delete[] tax;
+		tax = nullptr;
 		return is;
 	}
 
-
 	std::ostream& operator<<(std::ostream& os, const Good& rhs) {
-		
-		return os;
+		return rhs.write(os);
 	}
 
 	std::istream& operator>>(std::istream& is, Good& rhs) {
-		
-		return is;
+		return rhs.read(is);;
 	}
 	
 	double operator+=(double& cost, const Good& rhs) {
-		
-		return cost;//TODO: updated double
+		return cost += (rhs.total_cost() * rhs.quantity());
 	}
-
 
 } // namespace ama
