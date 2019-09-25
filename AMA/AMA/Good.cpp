@@ -29,9 +29,12 @@ namespace ama {
 	}
 
 	Good::Good(const char* gsku, const char* gName, const char* gUnit, int gOnHand, bool gTaxable, double gPrice, int gNeeded) {
+		cout << "gsku1: " << gsku << endl;
+
 		strncpy(ma_sku, gsku, max_sku_length);
 		ma_sku[max_sku_length] = '\0';
-
+		cout << "gsku2: " << gsku << endl;
+		cout << "ma_sku: " << ma_sku << endl;
 		name(gName);
 
 		strncpy(ma_unit, gUnit, max_unit_length);
@@ -313,9 +316,9 @@ false otherwise.*/
 		char sku[max_sku_length];
 		char* name = new char[max_name_length + 1];
 		char unit[max_unit_length + 1];
-		char* tax = nullptr;
-		double price;
-		int qtyOnHand, qtyNeeded;
+		char tax;
+		double price = 0.0;
+		int qtyOnHand = 0, qtyNeeded = 0;
 		bool taxable = true;
 
 		//getline() extracts information from a string till it gets to the specified delimiter
@@ -352,6 +355,9 @@ false otherwise.*/
 				is.setstate(std::ios::failbit);
 				mo_error.message("<input character –y,Y,n, or N> [“Only (Y)es or (N)o are acceptable”]");
 			}
+			else if (tax == 'n' || tax == 'N') {
+				taxable = false;
+			}
 		}
 
 		if (!(is.fail())) {
@@ -387,8 +393,6 @@ false otherwise.*/
 		}
 		delete[] name;
 		name = nullptr;
-		delete[] tax;
-		tax = nullptr;
 		return is;
 	}
 

@@ -23,10 +23,12 @@
 using namespace std;
 
 namespace ama {
-	MyGood::MyGood() : Good("", "", "") {}
+	MyGood::MyGood() : Good() {}
 	MyGood::MyGood(const char* sku, const char* name, const char* unit, int qty,
 		bool isTaxed, double price, int qtyNeeded) :
-		Good(sku, name, unit, qty, isTaxed, price, qtyNeeded) {}
+		Good(sku, name, unit, qty, isTaxed, price, qtyNeeded) {
+		cout << "MyGood: constract" << endl;
+	}
 	const char* MyGood::sku() const { return Good::sku(); }
 	const char* MyGood::name() const { return Good::name(); }
 	const char* MyGood::unit() const { return Good::unit(); }
@@ -107,6 +109,7 @@ namespace ama {
 		}
 		file.clear();
 		file.close();
+		cout << sku_ << name << unit << quantity << taxed_ << price_ << qtyNeeded << endl;
 		product = MyGood(sku_, name, unit, quantity, taxed_ != 0, price_, qtyNeeded);
 		return file;
 	}
