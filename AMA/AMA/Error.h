@@ -13,7 +13,7 @@
 namespace ama {
 
 	class Error {
-		char* m_errorMessage; //stores the address of the message, if any, in the current instance.
+		char* m_errorMessage = nullptr; //stores the address of the message, if any, in the current instance.
 
 	public:
 		explicit Error(const char* errorMessage = nullptr);

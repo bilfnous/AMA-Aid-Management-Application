@@ -75,8 +75,11 @@ namespace ama {
 		the object to a safe empty state.
 	*/
 	void Error::clear() {
-		delete[] m_errorMessage;
-		m_errorMessage = nullptr;
+		// check that the pointer is not null(null gets casted to false)
+		if (m_errorMessage) {
+			delete[] m_errorMessage;
+			m_errorMessage = nullptr;
+		}
 	}
 
 	/*
