@@ -29,12 +29,8 @@ namespace ama {
 	}
 
 	Good::Good(const char* gsku, const char* gName, const char* gUnit, int gOnHand, bool gTaxable, double gPrice, int gNeeded) {
-		cout << "gsku1: " << gsku << endl;
-
 		strncpy(ma_sku, gsku, max_sku_length);
 		ma_sku[max_sku_length] = '\0';
-		cout << "gsku2: " << gsku << endl;
-		cout << "ma_sku: " << ma_sku << endl;
 		name(gName);
 
 		strncpy(ma_unit, gUnit, max_unit_length);
@@ -117,7 +113,7 @@ namespace ama {
 	}
 
 	double Good::itemCost() const {
-		return m_price * (1 + tax_rate);
+		return m_price * (1 + (taxed() ? tax_rate : 0));
 	}
 
 	void Good::message(const char* msg) {
@@ -205,8 +201,8 @@ false otherwise.*/
 		if (m_taxable)
 			taxed = 'Y';
 
-		file << m_productType << "," << ma_sku << "," << mp_goodName << "," << ma_unit << ",";
-		file << taxed << "," << m_price << "," << m_qtyOnHand << "," << m_qtyNeeded;
+		file << m_productType << "," << sku() << "," << name() << "," << unit() << ",";
+		file << taxed << "," << itemCost() << "," << quantity() << "," << qtyNeeded();
 
 		if (newLine)
 			file << '\n';
@@ -271,22 +267,22 @@ false otherwise.*/
 			return os;
 		}
 		else if (linear) {
-			os << " " << std::right << setfill(' ') << setw(max_sku_length) << ma_sku << " | ";
+			os << " " << std::right << setfill(' ') << setw(max_sku_length) << sku() << " | ";
 
 			os << std::left;
-			if (strlen(mp_goodName) > 20) {
+			if (strlen(name()) > 20) {
 				for (int i = 0; i < 17; i++)
 					os << mp_goodName[i];
 				os << "... | ";
 			}
 			else
-				os << setfill(' ') << setw(16) << mp_goodName << " | ";
+				os << setfill(' ') << setw(16) << name() << " | ";
 
 			os << std::right;
 			os << setfill(' ') << setw(7);
 			os.setf(ios::fixed);
 			os.precision(2);
-			os << m_price << " | ";
+			os << itemCost() << " | ";
 			/*
 			if (m_taxable)
 				os << setfill(' ') << setw(3) << "yes" << " | ";
@@ -294,19 +290,19 @@ false otherwise.*/
 				os << setfill(' ') << setw(3) << "no" << " | ";
 			*/
 
-			os << setfill(' ') << setw(4) << m_qtyOnHand << " | ";
-			os << setfill(' ') << setw(10) << ma_unit << " | ";
-			os << setfill(' ') << setw(4) << m_qtyNeeded << " |";
+			os << setfill(' ') << setw(4) << quantity() << " | ";
+			os << setfill(' ') << setw(10) << unit() << " | ";
+			os << setfill(' ') << setw(4) << qtyNeeded() << " |";
 		}
 		else {
-			os << "Sku: " << ma_sku << endl;
-			os << "Name: " << mp_goodName << endl;
+			os << "Sku: " << sku() << endl;
+			os << "Name: " << name() << endl;
 			os << "Price: ";
 			os.setf(ios::fixed);
 			os.precision(2);
-			os << m_price << endl;
-			os << "Quantity Available: " << m_qtyOnHand;
-			os << "Quantity Needed: " << m_qtyNeeded;
+			os << itemCost() << endl;
+			os << "Quantity Available: " << quantity();
+			os << "Quantity Needed: " << qtyNeeded();
 		}
 		return os;
 	}
