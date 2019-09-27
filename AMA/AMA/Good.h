@@ -26,7 +26,7 @@ namespace ama {
 		int m_qtyNeeded;
 		double m_price;
 		bool m_taxable;
-		Error mo_error;
+		Error mo_error; // Holds the error state of the Goodobject.
 
 	protected:
 		void name(const char*);
