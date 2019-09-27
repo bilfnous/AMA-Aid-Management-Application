@@ -36,6 +36,15 @@
     <ClCompile Include="ms3_MyGood.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ms4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ms4_Allocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ms4_MyGood.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h">
@@ -48,6 +57,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ms3_MyGood.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ms4_MyGood.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iGood.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

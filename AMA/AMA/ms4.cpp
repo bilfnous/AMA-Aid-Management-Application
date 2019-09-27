@@ -25,7 +25,7 @@
 #endif
 
 using namespace std;
-using namespace aid;
+using namespace ama;
 
 int main() { 
   // create and populate the file of records

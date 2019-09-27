@@ -14,7 +14,7 @@
 
 #include "ms4_MyGood.h"
 
-namespace aid
+namespace ama
 {
 	iGood* CreateProduct(char tag) {
 		if (tag == 'n')
