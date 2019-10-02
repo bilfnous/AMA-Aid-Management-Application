@@ -221,7 +221,7 @@ namespace ama {
 		than the name of the Product received as parameter object
 		(according to how the string comparison functions define ‘greater than’); false otherwise.
 	*/
-	bool Good::operator> (const Good& left) const {
+	bool Good::operator> (const iGood& left) const {
 		if (strcmp(this->name(), left.name()) > 0)
 			return true;
 		return false;
@@ -489,7 +489,7 @@ namespace ama {
 		to a Goodobject and  returns  a  reference  to  the std::ostreamobject.  
 		Your  implementation  of  this function will insert a Goodrecord into the std::ostream.
 	*/
-	std::ostream& operator<<(std::ostream& os, const Good& rhs) {
+	std::ostream& operator<<(std::ostream& os, const iGood& rhs) {
 		return rhs.write(os);
 	}
 
@@ -499,7 +499,7 @@ namespace ama {
 		reference to the std::istreamobject. Your implementation of this function 
 		extracts the Goodrecord from the std::istream.
 	*/
-	std::istream& operator>>(std::istream& is, Good& rhs) {
+	std::istream& operator>>(std::istream& is, iGood& rhs) {
 		return rhs.read(is);;
 	}
 	
@@ -508,7 +508,7 @@ namespace ama {
 		Good object and returns a double. Your implementation of this function adds the total 
 		cost of the Goodobject to the doublereceivedand returns the updated double.
 	*/
-	double operator+=(double& cost, const Good& rhs) {
+	double operator+=(double& cost, const iGood& rhs) {
 		return cost += (rhs.total_cost() * rhs.quantity());
 	}
 

@@ -8,6 +8,7 @@
 #ifndef AMA_GOOD_H
 #define AMA_GOOD_H
 
+#include "iGood.h"
 #include "Error.h"
 
 namespace ama {
@@ -16,7 +17,7 @@ namespace ama {
 	const int max_name_length = 75;
 	const double tax_rate = 0.13;
 
-	class Good {
+	class Good : public iGood {
 	
 		char m_productType;
 		char ma_sku[max_sku_length + 1];
@@ -56,13 +57,13 @@ namespace ama {
 		int qtyNeeded() const;
 		int quantity() const;
 		bool operator>(const char*) const;
-		bool operator>(const Good&) const;
+		bool operator>(const iGood&) const;
 		int operator+=(int);
 	};
 
-	std::ostream& operator<<(std::ostream&, const Good&);
-	std::istream& operator>>(std::istream&, Good&);
-	double operator+=(double&, const Good&);
+	std::ostream& operator<<(std::ostream&, const iGood&);
+	std::istream& operator>>(std::istream&, iGood&);
+	double operator+=(double&, const iGood&);
 }
 
 #endif
