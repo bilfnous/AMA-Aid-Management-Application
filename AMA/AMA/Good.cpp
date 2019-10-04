@@ -376,8 +376,8 @@ namespace ama {
 			os.setf(ios::fixed);
 			os.precision(2);
 			os << itemCost() << endl;
-			os << "Quantity Available: " << quantity();
-			os << "Quantity Needed: " << qtyNeeded();
+			os << "Quantity Available: " << quantity() << endl;
+			os << "Quantity Needed: " << qtyNeeded() << endl;
 		}
 		return os;
 	}
