@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 #include "Perishable.h"
 
 using namespace std;
@@ -18,8 +19,12 @@ namespace ama {
 	
 	}
 
-	std::fstream& Perishable::store(std::fstream& file, bool newLine = true) const {
-	
+	std::fstream& Perishable::store(std::fstream& file, bool newLine) const {
+		Good::store(file, false);
+		file << "," << mo_date;
+		if (newLine)
+			file << "\n";
+		return file;
 	}
 
 	std::fstream& Perishable::load(std::fstream& file) {
