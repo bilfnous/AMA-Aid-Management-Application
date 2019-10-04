@@ -28,7 +28,9 @@ namespace ama {
 	}
 
 	std::fstream& Perishable::load(std::fstream& file) {
-	
+		Good::load(file);
+		file << mo_date;
+		return file;
 	}
 
 	std::ostream& Perishable::write(std::ostream& os, bool linear) const {
