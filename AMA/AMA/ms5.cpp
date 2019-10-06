@@ -24,7 +24,7 @@ void dumpFile(const char* fname);
 void pause_();
 
 using namespace std;
-using namespace aid;
+using namespace ama;
 
 int main()
 {
