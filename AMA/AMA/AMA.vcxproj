@@ -153,6 +153,7 @@
     <ClCompile Include="ms4.cpp" />
     <ClCompile Include="ms4_Allocator.cpp" />
     <ClCompile Include="ms4_MyGood.cpp" />
+    <ClCompile Include="Perishable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="iGood.h" />
     <ClInclude Include="ms3_MyGood.h" />
     <ClInclude Include="ms4_MyGood.h" />
+    <ClInclude Include="Perishable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -45,6 +45,9 @@
     <ClCompile Include="ms4_MyGood.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Perishable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h">
@@ -63,6 +66,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="iGood.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Perishable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

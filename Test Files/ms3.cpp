@@ -11,26 +11,26 @@
 // --------------------------------------------------------------
 // Name               Date                 Reason
 /////////////////////////////////////////////////////////////////
-/*
+
 #include "ms3_MyGood.h"
 #include "Good.h"
 #include "Good.h" // intentional
 
 #define filename "ms3.txt"
 using namespace std;
-using namespace ama;
+using namespace aid;
 
 void test(const char* sku);
 void dumpFile(fstream& f);
 
 int main() {
-	cout << "Checking constants:";
-	cout << "\n------------------------------";
-	cout << "\n\tmax_sku_length: " << max_sku_length;
-	cout << "\n\tmax_unit_length: " << max_unit_length;
-	cout << "\n\tmax_name_length: " << max_name_length;
-	cout << "\n\ttax_rate: " << tax_rate;
-	cout << "\n------------------------------n\n";
+    cout << "Checking constants:";
+    cout << "\n------------------------------";
+    cout << "\n\tmax_sku_length: " << max_sku_length;
+    cout << "\n\tmax_unit_length: " << max_unit_length;
+    cout << "\n\tmax_name_length: " << max_name_length;
+    cout << "\n\ttax_rate: " << tax_rate;
+    cout << "\n------------------------------n\n";
 
 	fstream file(filename, ios::out);
 	file.close();
@@ -112,5 +112,3 @@ void dumpFile(fstream& f) {
 	f.clear();
 	f.close();
 }
-
-*/
