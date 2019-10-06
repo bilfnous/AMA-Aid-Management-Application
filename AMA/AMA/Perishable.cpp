@@ -83,5 +83,20 @@ namespace ama {
 		return mo_date;
 	}
 
+	iGood* CreateProduct(char tag) {
+		if (tag == 'N' || tag == 'n') {
+			iGood* product = nullptr;
+			product = new Good();
+			return product;
+		}
+		else if (tag == 'P' || tag == 'p') {
+			Perishable* perishable = nullptr;
+			perishable = new Perishable();
+			return perishable;
+		}
+		else {
+			return nullptr;
+		}
+	}
 
 }

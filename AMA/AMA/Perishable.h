@@ -24,6 +24,6 @@ namespace ama {
 		std::istream& read(std::istream& is);
 		const Date& expiry() const;
 	};
-
+	iGood* CreateProduct(char tag);
 }
 #endif
