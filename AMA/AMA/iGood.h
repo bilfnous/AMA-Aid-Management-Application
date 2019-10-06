@@ -42,7 +42,7 @@ namespace ama {
 			Implementations of this function will insert the iGood record for the current object into 
 			the std::ostreamobject.
 		*/
-		virtual std::ostream& write(std::ostream& os, bool linear) const = 0;
+		virtual std::ostream& write(std::ostream& os, bool linear = true) const = 0;
 
 		/*
 			This modifier will receive a reference to an std::istream object   and   returns   a   
@@ -95,7 +95,10 @@ namespace ama {
 			define ‘greater than’); false otherwise
 		*/
 		virtual bool operator>(const iGood& other) const = 0;
-
 	};
+	iGood* CreateProduct(char tag);
+	std::ostream& operator<<(std::ostream&, const iGood&);
+	std::istream& operator>>(std::istream&, iGood&);
+	double operator+=(double&, const iGood&);
 }
 #endif

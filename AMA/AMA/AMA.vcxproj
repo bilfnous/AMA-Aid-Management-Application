@@ -146,13 +146,7 @@
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Good.cpp" />
-    <ClCompile Include="ms1.cpp" />
-    <ClCompile Include="ms2.cpp" />
-    <ClCompile Include="ms3.cpp" />
-    <ClCompile Include="ms3_MyGood.cpp" />
-    <ClCompile Include="ms4.cpp" />
-    <ClCompile Include="ms4_Allocator.cpp" />
-    <ClCompile Include="ms4_MyGood.cpp" />
+    <ClCompile Include="ms5.cpp" />
     <ClCompile Include="Perishable.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -160,8 +154,6 @@
     <ClInclude Include="Error.h" />
     <ClInclude Include="Good.h" />
     <ClInclude Include="iGood.h" />
-    <ClInclude Include="ms3_MyGood.h" />
-    <ClInclude Include="ms4_MyGood.h" />
     <ClInclude Include="Perishable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

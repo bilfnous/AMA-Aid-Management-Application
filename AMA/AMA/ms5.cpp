@@ -12,6 +12,7 @@
 // Name               Date                 Reason
 /////////////////////////////////////////////////////////////////
 
+#include <fstream>
 #include "iGood.h"
 #include "iGood.h" // intentional
 
