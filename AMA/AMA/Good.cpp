@@ -263,13 +263,13 @@ namespace ama {
 			* if the bool parameter is true, inserts a newline at the end of the record.
 	*/
 	std::fstream& Good::store(std::fstream& file, bool newLine) const {
-		char taxed = 'N';
+		int taxed = 0;
 
 		if (m_taxable)
-			taxed = 'Y';
+			taxed = 1;
 
 		file << m_productType << "," << sku() << "," << name() << "," << unit() << ",";
-		file << taxed << "," << itemCost() << "," << quantity() << "," << qtyNeeded();
+		file << taxed << "," << itemPrice() << "," << quantity() << "," << qtyNeeded();
 
 		if (newLine)
 			file << '\n';
@@ -289,7 +289,7 @@ namespace ama {
 		char sku[max_sku_length];
 		char* name = new char[max_name_length + 1];
 		char unit[max_unit_length + 1];
-		char* tax = nullptr;
+		int tax = 0;
 		double price;
 		int qtyOnHand, qtyNeeded;
 		bool taxable = true;
@@ -304,8 +304,8 @@ namespace ama {
 		strcpy(unit, temp.c_str());
 
 		getline(file, temp, ',');
-		strncpy(tax, temp.c_str(), 1);
-		if (tax == "Y" || tax == "y")
+		tax = stoi(temp);
+		if (tax == 1)
 			taxable = true;
 		else
 			taxable = false;
@@ -326,8 +326,6 @@ namespace ama {
 		}
 		delete[] name;
 		name = nullptr;
-		delete[] tax;
-		tax = nullptr;
 
 		return file;
 	}
@@ -349,7 +347,7 @@ namespace ama {
 			return os;
 		}
 		else if (linear) {
-			os << " " << std::left << setfill(' ') << setw(max_sku_length) << sku() << " |";
+			os << std::left << setfill(' ') << setw(max_sku_length) << sku() << "|";
 
 			os << std::left;
 			if (strlen(name()) > 20) {
@@ -358,16 +356,18 @@ namespace ama {
 				os << "... | ";
 			}
 			else
-				os << setfill(' ') << setw(16) << name() << "|";
+				os << setfill(' ') << setw(20) << name() << "|";
 
-			os << std::left;
+			os << std::right;
 			os << setfill(' ') << setw(7);
 			os.setf(ios::fixed);
 			os.precision(2);
 			os << itemCost() << "|";
 
 			os << setfill(' ') << setw(4) << quantity() << "|";
+			os << std::left;
 			os << setfill(' ') << setw(10) << unit() << "|";
+			os << std::right;
 			os << setfill(' ') << setw(4) << qtyNeeded() << "|";
 		}
 		else {
