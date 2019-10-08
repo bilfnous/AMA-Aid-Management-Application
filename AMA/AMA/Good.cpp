@@ -72,6 +72,7 @@ namespace ama {
 			m_qtyOnHand = src.m_qtyOnHand;
 			m_price = src.m_price;
 			m_taxable = src.m_taxable;
+			mo_error.message(src.mo_error.message());
 		}
 		return *this;
 	}
@@ -303,8 +304,8 @@ namespace ama {
 		strcpy(unit, temp.c_str());
 
 		getline(file, temp, ',');
-		strcpy(tax, temp.c_str());
-		if (strcmp(tax, "Y") || strcmp(tax, "y"))
+		strncpy(tax, temp.c_str(), 1);
+		if (tax == "Y" || tax == "y")
 			taxable = true;
 		else
 			taxable = false;
@@ -348,7 +349,7 @@ namespace ama {
 			return os;
 		}
 		else if (linear) {
-			os << " " << std::right << setfill(' ') << setw(max_sku_length) << sku() << " | ";
+			os << " " << std::left << setfill(' ') << setw(max_sku_length) << sku() << " |";
 
 			os << std::left;
 			if (strlen(name()) > 20) {
@@ -357,17 +358,17 @@ namespace ama {
 				os << "... | ";
 			}
 			else
-				os << setfill(' ') << setw(16) << name() << " | ";
+				os << setfill(' ') << setw(16) << name() << "|";
 
-			os << std::right;
+			os << std::left;
 			os << setfill(' ') << setw(7);
 			os.setf(ios::fixed);
 			os.precision(2);
-			os << itemCost() << " | ";
+			os << itemCost() << "|";
 
-			os << setfill(' ') << setw(4) << quantity() << " | ";
-			os << setfill(' ') << setw(10) << unit() << " | ";
-			os << setfill(' ') << setw(4) << qtyNeeded() << " |";
+			os << setfill(' ') << setw(4) << quantity() << "|";
+			os << setfill(' ') << setw(10) << unit() << "|";
+			os << setfill(' ') << setw(4) << qtyNeeded() << "|";
 		}
 		else {
 			os << "Sku: " << sku() << endl;
@@ -439,12 +440,15 @@ namespace ama {
 		if (!(is.fail())) {
 			cout << "Taxed? (y/n): ";
 			is >> tax;
-			if (is.fail()) {
-				is.setstate(std::ios::failbit);
-				mo_error.message("<input character –y,Y,n, or N> [“Only (Y)es or (N)o are acceptable”]");
-			}
-			else if (tax == 'n' || tax == 'N') {
+			if (tax == 'n' || tax == 'N') {
 				taxable = false;
+			}
+			else if ((tax == 'Y') || (tax == 'y')) {
+				taxable = true;
+			}
+			else {
+				is.setstate(std::ios::failbit);
+				mo_error.message("Only (Y)es or (N)o are acceptable");
 			}
 		}
 
@@ -453,7 +457,7 @@ namespace ama {
 			is >> price;
 			if (is.fail()) {
 				is.setstate(std::ios::failbit);
-				mo_error.message("<input value –double> [“Invalid Price Entry”]");
+				mo_error.message("Invalid Price Entry");
 			}
 		}
 
@@ -462,7 +466,7 @@ namespace ama {
 			is >> qtyOnHand;
 			if (is.fail()) {
 				is.setstate(std::ios::failbit);
-				mo_error.message("<input value –integer> [“Invalid Quantity Entry”]");
+				mo_error.message("Invalid Quantity Entry");
 			}
 		}
 
@@ -471,7 +475,7 @@ namespace ama {
 			is >> qtyNeeded;
 			if (is.fail()) {
 				is.setstate(std::ios::failbit);
-				mo_error.message("<input value –integer> [“Invalid Quantity Needed Entry”]");
+				mo_error.message("Invalid Quantity Needed Entry");
 			}
 		}
 		
