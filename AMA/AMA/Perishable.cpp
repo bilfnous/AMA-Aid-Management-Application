@@ -37,7 +37,7 @@ namespace ama {
 		Good::write(os, linear);
 		if (Good::isClear() && !Good::isEmpty()) {
 			if (linear)
-				os << " " << std::right << mo_date << " |";
+				os << std::right << mo_date << "|";
 			else
 				os << std::right << "Expiry Date: " << mo_date << endl;
 		}
@@ -50,9 +50,8 @@ namespace ama {
 		
 		cout << "Expiry date (YYYY/MM/DD): ";
 		is >> temp;
-		if (!(is.fail()))
-			mo_date = temp;
-		else if (is.fail()) {
+		
+		if (is.fail()) {
 			is.setstate(ios::failbit);
 			message("Invalid Date Entry");
 		}
@@ -70,11 +69,13 @@ namespace ama {
 		}
 		else if (temp.errCode() == PAST_ERROR) {
 			is.setstate(ios::failbit);
-			message("Invalid Expiry Datein Date Entry");
+			message("Invalid Expiry in Date Entry");
 		}
+		if (!(is.fail()))
+			mo_date = temp;
 				
 		//is >> mo_date;
-		is.ignore(1000, '\n');
+		//is.ignore(1000, '\n');
 		
 		return is;
 	}

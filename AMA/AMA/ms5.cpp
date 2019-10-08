@@ -42,13 +42,12 @@ int main()
 	
 	cout << "No product: " << (CreateProduct('a') == nullptr ? "true" : "false") << endl;
 	
-	testGood();
+	//testGood();
 	cout << endl;
 	testPerishable();
 }
 
 // testGood tests the processing of Good objects
-//
 void testGood() {
   fstream goodsFile("good.txt", ios::out);
   iGood* good = CreateProduct('n');
@@ -166,7 +165,6 @@ void testGood() {
 }
 
 // testPerishable tests the processing of Perishable objects
-//
 void testPerishable() {
   fstream goodsShortFile("goodsShortFile.txt", ios::out);
   iGood* perishable = CreateProduct('p');

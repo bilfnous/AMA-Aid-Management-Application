@@ -143,9 +143,6 @@ namespace ama {
 		comparator = year * 372 + month * 31 + day;
 		if (is.fail()) {
 			errCode(CIN_FAILED);
-			//is.clear();
-			//string trash;
-			//is >> trash;
 		}
 		else {
 			if ((year > max_year) || (year < min_year))
