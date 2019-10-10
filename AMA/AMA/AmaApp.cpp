@@ -133,7 +133,7 @@ namespace ama {
 	}
 	
 	void AmaApp::loadProductRecords() {
-		ifstream readfile;
+		fstream readfile;
 		int idx = 0;
 		char buffer[100] = {};
 		char tag;
@@ -141,28 +141,27 @@ namespace ama {
 		readfile.open(m_filename, ios::in);
 
 		if (readfile.is_open() && readfile) {
+
+			//count number of records in the inventory 
+			int records = 0;
+			ifstream in(m_filename);
+			std::string record;
+			while (std::getline(in, record))
+				records++;
+
+			//create dynamic memory
+			m_products = new iGood * [records];
+			
 			do {
 				if (readfile.eof())
 					break;
-
-				//count number of records in the inventory 
-				int records = 0;
-				ifstream in(m_filename);
-				std::string record;
-				while (std::getline(in, record))
-					records++;
-
-				//create dynamic memory
-				m_products = new iGood*[records];
 
 				readfile.getline(buffer, 4, ',');
 				tag = buffer[0];
 				//If not instance created, null will be returned.
 				m_products[idx] = CreateProduct(tag);
 				if (m_products[idx] != nullptr) {
-					readfile.getline(buffer, 100);
-					stringstream ss(buffer);//Converts string array to string stream
-					m_products[idx]->read(ss);
+					m_products[idx]->load(readfile);
 					idx++;
 				}
 

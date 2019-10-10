@@ -278,7 +278,7 @@ namespace ama {
 	}
 
 	/*
-		This modifier receives a reference to an std::fstreamobject  and  returns  a  reference  to  that std::fstreamobject.  
+		This modifier receives a reference to an std::fstream object and  returns  a  reference  to  that std::fstreamobject.  
 		This function:
 			* extracts the fields for a single record from thestd::fstream objecto
 			* creates a temporary object from the extracted field data 
@@ -317,7 +317,7 @@ namespace ama {
 		getline(file, temp, ',');
 		qtyOnHand = stoi(temp);
 
-		getline(file, temp, ',');
+		getline(file, temp);
 		qtyNeeded = stoi(temp);
 
 		if (!file.fail()) {
