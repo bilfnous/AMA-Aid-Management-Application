@@ -156,6 +156,7 @@ namespace ama {
 				if (readfile.eof())
 					break;
 
+				readfile.clear();
 				readfile.getline(buffer, 4, ',');
 				tag = buffer[0];
 				//If not instance created, null will be returned.

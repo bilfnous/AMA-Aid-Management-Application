@@ -29,7 +29,7 @@ namespace ama {
 
 	std::fstream& Perishable::load(std::fstream& file) {
 		Good::load(file);
-		file << mo_date;
+		file >> mo_date;
 		return file;
 	}
 
