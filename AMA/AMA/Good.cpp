@@ -317,22 +317,20 @@ namespace ama {
 		getline(file, temp, ',');
 		qtyOnHand = stoi(temp);
 
-		
-		size_t found;
-		string needed;
 
-		getline(file, temp);
-		size_t pos = file.tellg();
-		found = temp.find_first_of(",");
-		if (found != std::string::npos) {
-			needed = temp.substr(0, found);
-			qtyNeeded = stoi(needed);
-			file.seekg(pos - 1);
-			getline(file, temp);
-			cout << temp << endl;
-		}
-		else
+		auto pos = file.tellg();
+		getline(file, temp, ',');
+		
+		auto found = temp.find_first_of("\n");
+		if (found == std::string::npos) {
 			qtyNeeded = stoi(temp);
+		}
+		else {
+			file.seekg(pos);
+			getline(file, temp);
+			qtyNeeded = stoi(temp);
+		}
+			
 
 		if (!file.fail()) {
 			Good temp = Good(sku, name, unit, qtyOnHand, taxable, price, qtyNeeded);
