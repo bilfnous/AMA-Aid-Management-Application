@@ -317,10 +317,9 @@ namespace ama {
 		getline(file, temp, ',');
 		qtyOnHand = stoi(temp);
 
-
-		auto pos = file.tellg();
+		/*
+		auto pos = file.tellp();
 		getline(file, temp, ',');
-		
 		auto found = temp.find_first_of("\n");
 		if (found == std::string::npos) {
 			qtyNeeded = stoi(temp);
@@ -330,6 +329,18 @@ namespace ama {
 			getline(file, temp);
 			qtyNeeded = stoi(temp);
 		}
+		*/
+
+		char ch;
+		string str = "";
+		do {
+			ch = file.get();
+			string s(1, ch);
+			str.append(s);
+			temp.assign(str);
+		} while ((ch != ',') && (ch != '\n'));
+		
+		qtyNeeded = stoi(temp);
 			
 
 		if (!file.fail()) {

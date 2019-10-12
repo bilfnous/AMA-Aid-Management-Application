@@ -155,10 +155,11 @@ namespace ama {
 			do {
 				if (readfile.eof())
 					break;
-
-				readfile.clear();
-				readfile.getline(buffer, 4, ',');
-				tag = buffer[0];
+				string temp;
+				getline(readfile, temp, ',');
+				tag = temp[0];
+				if (tag == '\n')
+					tag = temp[1];
 				//If not instance created, null will be returned.
 				m_products[idx] = CreateProduct(tag);
 				if (m_products[idx] != nullptr) {
