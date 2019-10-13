@@ -12,9 +12,9 @@
 #include "Date.h"
 
 namespace ama {
-	Date mo_date;
 
 	class Perishable : public Good {
+		Date mo_date;
 
 	public:
 		Perishable(char pType = 'P');

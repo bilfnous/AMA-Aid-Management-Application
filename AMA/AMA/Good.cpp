@@ -169,7 +169,7 @@ namespace ama {
 		if (m_taxable) {
 			return itemCost() * m_qtyOnHand;
 		}
-		return m_price;
+		return itemPrice() * m_qtyOnHand;
 	}
 
 	/*
@@ -303,16 +303,16 @@ namespace ama {
 		getline(file, temp, ',');
 		strcpy(unit, temp.c_str());
 
+		//stod() converts to double
+		getline(file, temp, ',');
+		price = stod(temp);
+
 		getline(file, temp, ',');
 		tax = stoi(temp);
 		if (tax == 1)
 			taxable = true;
 		else
 			taxable = false;
-
-		//stod() converts to double
-		getline(file, temp, ',');
-		price = stod(temp);
 
 		getline(file, temp, ',');
 		qtyOnHand = stoi(temp);
@@ -373,25 +373,32 @@ namespace ama {
 			os << std::left << setfill(' ') << setw(max_sku_length) << sku() << "|";
 
 			os << std::left;
-			if (strlen(name()) > 20) {
-				for (int i = 0; i < 17; i++)
+			if (strlen(name()) > 17) {
+				for (int i = 0; i < 14; i++)
 					os << mp_goodName[i];
-				os << "... | ";
+				os << "... |";
 			}
 			else
-				os << setfill(' ') << setw(20) << name() << "|";
+				os << setfill(' ') << setw(18) << name() << "|";
 
-			os << std::right;
+			os << std::left;
+			os << setfill(' ') << setw(10) << unit() << "|";
+
+			//os << std::right;
 			os << setfill(' ') << setw(7);
 			os.setf(ios::fixed);
 			os.precision(2);
 			os << itemCost() << "|";
+			
+			if (taxed())
+				os << setfill(' ') << setw(5) << "Y" << "|";
+			else
+				os << setfill(' ') << setw(5) << "N" << "|";
 
-			os << setfill(' ') << setw(4) << quantity() << "|";
-			os << std::left;
-			os << setfill(' ') << setw(10) << unit() << "|";
-			os << std::right;
-			os << setfill(' ') << setw(4) << qtyNeeded() << "|";
+			os << setfill(' ') << setw(7) << quantity() << "|";
+			
+			//os << std::right;
+			os << setfill(' ') << setw(7) << qtyNeeded() << "|";
 		}
 		else {
 			os << "Sku: " << sku() << endl;

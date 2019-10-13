@@ -61,12 +61,13 @@ namespace ama {
 				cin >> sku;
 				cout << endl;
 				if (find(sku) != nullptr) {
-					find(sku)->write(std::cout);
+					find(sku)->write(std::cout, false);
 					cout << endl;
 				}
 				else {
 					cout << "No such product!" << endl;
 				}
+				cin.ignore(2000, '\n');
 				pause();
 				cout << endl;
 				break;
@@ -103,7 +104,7 @@ namespace ama {
 	
 	void AmaApp::pause() const {
 		cout << "Press Enter to continue...";
-		cin.ignore(1000, '\n');
+		cin.ignore(2000, '\n');
 		cout << endl;
 	}
 	
@@ -124,11 +125,11 @@ namespace ama {
 		cin >> input;
 
 		if (input >= 0 && input <= 7) {
-			cin.ignore(1000, '\n');
+			cin.ignore(2000, '\n');
 			return input;
 		}
 
-		cin.ignore(1000, '\n');
+		cin.ignore(2000, '\n');
 		return -1;
 	}
 	
@@ -194,9 +195,9 @@ namespace ama {
 	
 	void AmaApp::listProducts() const {
 		double cost = 0, temp = 0;
-		cout << "------------------------------------------------------------------------------------------------" << endl
-			<< "| Row |     SKU | Product Name     | Unit       |   Price | Tax |   QtyA |   QtyN | Expiry     |" << endl
-			<< "|-----|---------|------------------|------------|---------|-----|--------|--------|------------|" << endl;
+		cout << "--------------------------------------------------------------------------------------" << endl
+			<< "| Row |   SKU | Product Name     | Unit     | Price | Tax |  QtyA |  QtyN | Expiry   |" << endl
+			<< "|-----|-------|------------------|----------|-------|-----|-------|-------|----------|" << endl;
 
 		for (int i = 0; i < m_noOfProducts; i++) {
 			cout << "|" << std::right << setfill(' ') << setw(4) << i + 1 << " |";
@@ -204,22 +205,22 @@ namespace ama {
 			cout << endl;
 
 			if (m_products[i]->quantity() != 0)
-				temp = m_products[i]->total_cost() * m_products[i]->quantity();
+				temp = m_products[i]->total_cost();
 			else
 				temp = 0;
 
 			cost += temp;
 		}
 
-		cout << "------------------------------------------------------------------------------------------------" << endl
-			<< "|                                                      Total cost of support ($): | " <<
+		cout << "--------------------------------------------------------------------------------------" << endl
+			<< "|                                              Total cost of support ($): " <<
 
 			std::right << setfill(' ') << setw(10);
 		cout.setf(ios::fixed);
 		cout.precision(2);
 		cout << cost << " |" << endl
 
-			<< "------------------------------------------------------------------------------------------------" << endl << endl;
+			<< "--------------------------------------------------------------------------------------" << endl << endl;
 	}
 	
 	void AmaApp::deleteProductRecord(iGood* product) {}
