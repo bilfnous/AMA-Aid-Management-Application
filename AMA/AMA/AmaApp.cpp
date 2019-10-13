@@ -180,13 +180,13 @@ namespace ama {
 	}
 	
 	void AmaApp::saveProductRecords() const {
-		ofstream writefile;
+		fstream writefile;
 		char line = '\n';
 
 		writefile.open(m_filename, ios::out);
 		if (writefile.is_open() && writefile) {
 			for (int i = 0; i < m_noOfProducts; i++) {
-				m_products[i]->write(writefile);
+				m_products[i]->store(writefile, false);
 				writefile << line;
 			}
 			writefile.close();
@@ -239,7 +239,7 @@ namespace ama {
 	void AmaApp::addQty(iGood* product) {
 		int qty;
 		int qtyneed, returned;
-		product->write(std::cout);
+		product->write(std::cout, false);
 		cout << endl << endl;
 		cout << "Please enter the number of purchased items: ";
 		cin >> qty;

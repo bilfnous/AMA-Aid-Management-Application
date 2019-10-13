@@ -239,6 +239,7 @@ namespace ama {
 	int Good::operator+=(int cnt) {
 		if (cnt > 0) {
 			m_qtyOnHand += cnt;
+			m_qtyNeeded -= cnt;
 			return m_qtyOnHand;
 		}
 		return m_qtyOnHand;
