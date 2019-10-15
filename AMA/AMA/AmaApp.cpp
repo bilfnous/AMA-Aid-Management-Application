@@ -267,7 +267,7 @@ namespace ama {
 			}
 		}
 	}
-	
+
 	void AmaApp::addProduct(char tag) {		
 		delete[] m_products;
 		m_products = nullptr;
