@@ -92,7 +92,11 @@ namespace ama {
 				}
 				break;
 			case 6:
+					cout << "This Function is not implemented yet...!" << endl << endl;
+				break;
 			case 7:
+					cout << "This Function is not implemented yet...!" << endl << endl;
+				break;
 
 			default:
 				cout << "~~~Invalid selection, try again!~~~" << endl;
@@ -243,7 +247,7 @@ namespace ama {
 		int qtyneed, returned;
 		product->write(std::cout, false);
 		cout << endl << endl;
-		cout << "Please enter the number of purchased items: ";
+		cout << "Enter the number of purchased items: ";
 		cin >> qty;
 		if (cin.fail()) {
 			cin.clear();//Clear errors
