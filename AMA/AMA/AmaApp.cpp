@@ -143,15 +143,17 @@ namespace ama {
 
 		if (readfile.is_open() && readfile) {
 
-			//count number of records in the inventory 
-			int records = 0;
-			ifstream in(m_filename);
-			std::string record;
-			while (std::getline(in, record))
-				records++;
-
-			//create dynamic memory
-			m_products = new iGood * [records];
+			if (m_noOfProducts == 0) {
+				//count number of records in the inventory 
+				int records = 0;
+				ifstream in(m_filename);
+				std::string record;
+				while (std::getline(in, record))
+					records++;
+				//create dynamic memory
+				m_products = new iGood * [records];
+				m_noOfProducts = records;
+			}
 			
 			do {
 				if (readfile.eof())
@@ -169,7 +171,6 @@ namespace ama {
 				}
 
 			} while (true);
-			m_noOfProducts = idx;
 			readfile.close();
 		}
 		else {
@@ -187,7 +188,8 @@ namespace ama {
 		if (writefile.is_open() && writefile) {
 			for (int i = 0; i < m_noOfProducts; i++) {
 				m_products[i]->store(writefile, false);
-				writefile << line;
+				if(i < (m_noOfProducts - 1))
+					writefile << line;
 			}
 			writefile.close();
 		}
@@ -266,18 +268,24 @@ namespace ama {
 		}
 	}
 	
-	void AmaApp::addProduct(char tag) {
-		m_products[m_noOfProducts] = CreateProduct(tag);
+	void AmaApp::addProduct(char tag) {		
+		delete[] m_products;
+		m_products = nullptr;
+		m_noOfProducts++;
+		m_products = new iGood * [m_noOfProducts];
+		loadProductRecords();
 
-		if (m_products[m_noOfProducts] != nullptr) {
-			cin >> *m_products[m_noOfProducts];
+		m_products[m_noOfProducts - 1] = CreateProduct(tag);
+		if (m_products[m_noOfProducts - 1] != nullptr) {
+			cin >> *m_products[m_noOfProducts - 1];
 			if (cin.fail()) {
+				m_noOfProducts--;
 				cout << endl << *m_products[m_noOfProducts] << endl << endl;
 				cin.clear();
 				cin.ignore();
 			}
 			else {
-				m_noOfProducts++;
+				//m_noOfProducts++;
 				saveProductRecords();
 				cout << endl << "Success!" << endl << endl;
 			}
